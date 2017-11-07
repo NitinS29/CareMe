@@ -26,49 +26,9 @@ namespace Homework_04
         // For more information on configuring authentication, please visit https://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
-
-            //HttpConfiguration httpConfig = new HttpConfiguration();
-
             ConfigureOAuthTokenGeneration(app);
 
             ConfigureOAuthTokenConsumption(app);
-
-           // ConfigureWebApi(httpConfig);
-
-            //app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-
-            //app.UseWebApi(httpConfig);
-
-            /* var issuer = ConfigurationManager.AppSettings["issuer"];
-             var secret = TextEncodings.Base64Url.Decode(ConfigurationManager.AppSettings["secret"]);
-
-             // Configure the db context and user manager to use a single instance per request
-             app.CreatePerOwinContext(ApplicationDbContext.Create);
-             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-             app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
-
-             // 
-             // Enable the application to use a cookie to store information for the signed in user
-
-             app.UseOAuthAuthorizationServer(new OAuthAuthorizationServerOptions
-             {
-                 AllowInsecureHttp = true,
-                 TokenEndpointPath = new PathString("/oauth2/token"),
-                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
-                 Provider = new CustomOAuthProvider(),
-                 AccessTokenFormat = new CustomJwtFormat(issuer)
-             });
-
-             app.UseJwtBearerAuthentication(new JwtBearerAuthenticationOptions
-          {
-              AuthenticationMode = AuthenticationMode.Active,
-              AllowedAudiences = new[] { "Any" },
-              IssuerSecurityTokenProviders = new IIssuerSecurityTokenProvider[]
-                  {
-                       new SymmetricKeyIssuerSecurityTokenProvider(issuer, secret)
-                  }
-          });*/
-
         }
 
         private void ConfigureOAuthTokenGeneration(IAppBuilder app)
@@ -85,7 +45,7 @@ namespace Homework_04
                 TokenEndpointPath = new PathString("/oauth2/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
                 Provider = new CustomOAuthProvider(),
-                AccessTokenFormat = new CustomJwtFormat("http://localhost:54344"),
+                AccessTokenFormat = new CustomJwtFormat(ConfigurationManager.AppSettings["issuer"]),
                 AuthenticationType = DefaultAuthenticationTypes.ExternalBearer
             };
 
@@ -95,8 +55,7 @@ namespace Homework_04
 
         private void ConfigureOAuthTokenConsumption(IAppBuilder app)
         {
-
-            var issuer = "http://localhost:54344";
+            var issuer = ConfigurationManager.AppSettings["issuer"];
             string audienceId = ConfigurationManager.AppSettings["audienceId"];
             byte[] audienceSecret = TextEncodings.Base64Url.Decode(ConfigurationManager.AppSettings["secret"]);
 

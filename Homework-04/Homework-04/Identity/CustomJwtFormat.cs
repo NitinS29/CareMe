@@ -26,26 +26,14 @@ namespace Homework_04.Identity
                 throw new ArgumentNullException(nameof(data));
             }
 
-            /*var signingKey = new Microsoft.IdentityModel.Tokens.SigningCredentials(_secret, Microsoft.IdentityModel.Tokens.SecurityAlgorithms.HmacSha256);
-            var signingKey = new Microsoft.IdentityModel.Tokens.SigningCredentials(
-                new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(ConfigurationManager.AppSettings["secret"])), 
-                System.IdentityModel.Tokens.SecurityAlgorithms.HmacSha256Signature);
-              var signingKey = new HmacSigningCredentials(_secret);
-              var issued = data.Properties.IssuedUtc;
-              var expires = data.Properties.ExpiresUtc;
-
-              return new System.IdentityModel.Tokens.JwtSecurityTokenHandler().WriteToken(new JwtSecurityToken(_issuer, null, data.Identity.Claims, issued.Value.UtcDateTime, expires.Value.UtcDateTime, signingKey));*/
-
             string audienceId = ConfigurationManager.AppSettings["audienceId"];
 
             string symmetricKeyAsBase64 = ConfigurationManager.AppSettings["secret"];
             
             var keyByteArray = TextEncodings.Base64Url.Decode(symmetricKeyAsBase64);
 
-             var signingKey = new HmacSigningCredentials(keyByteArray);
-           // var key = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(ConfigurationManager.AppSettings["secret"]));
-            //var signingKey = new Microsoft.IdentityModel.Tokens.SigningCredentials(key, Microsoft.IdentityModel.Tokens.SecurityAlgorithms.HmacSha256);
-
+            var signingKey = new HmacSigningCredentials(keyByteArray);
+          
             var issued = data.Properties.IssuedUtc;
 
             var expires = data.Properties.ExpiresUtc;
