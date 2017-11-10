@@ -33,13 +33,25 @@ namespace Homework_04.Migrations
             {
                 Email = "admin@gmail.com",
                 UserName = "Admin"
+               // StudyGroupId = 1 + ""
             };
 
             manager.Create(admin, "Admin@6010");
 
             var adminUser = manager.FindByName("Admin");
             manager.AddToRoles(adminUser.Id, "Admin");
+
             
+           /* var studyGroup = new Models.StudyGroup
+            {
+                StudyGroupId = 1 + "",
+                StudyCoordinatorId = adminUser.Id,
+                StudyName = "Study Group - 1",
+                StudyGroupCreadtedTime = DateTime.Now.ToString()
+            };
+
+            context.StudyGroups.AddOrUpdate(studyGroup);*/
+
 
             //  This method will be called after migrating to the latest version.
 

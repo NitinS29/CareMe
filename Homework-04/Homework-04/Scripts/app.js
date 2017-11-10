@@ -117,6 +117,7 @@
             console.log(data.access_token);
             // Cache the access token in session storage.
             sessionStorage.setItem(tokenKey, data.access_token);
+            window.location.href = 'Admin/Dashboard';
         }).fail(showError);
     }
 

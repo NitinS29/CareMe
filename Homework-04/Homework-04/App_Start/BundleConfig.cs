@@ -8,6 +8,7 @@ namespace Homework_04
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.IgnoreList.Clear();
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -26,6 +27,23 @@ namespace Homework_04
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                      "~/Scripts/knockout-{version}.js",
                      "~/Scripts/app.js"));
+            bundles.Add(new ScriptBundle("~/bundles/Dashboard").Include(
+                     "~/Scripts/knockout-{version}.js",
+                      "~/Scripts/Dashboard.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/datatable").Include(
+                      "~/Scripts/DataTables/datatables.min.css",
+                      "~/Scripts/DataTables/datatables.min.js",                     
+                      "~/Scripts/DataTables/jquery.datatables.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/SurveyMange").Include(
+                     "~/Scripts/knockout-{version}.js",
+                      "~/Scripts/SurveyManage.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/ResponseMange").Include(
+                     "~/Scripts/knockout-{version}.js",
+                      "~/Scripts/ResponseManage.js"));
+
         }
     }
 }
